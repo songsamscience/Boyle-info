@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="dark light">
-<meta name="version" content="2.1">
+<meta name="version" content="2.2">
 <meta name="description" content="끝을 막은 주사기의 피스톤을 밀고 당기며 압력계로 압력을 재고, 확대한 입자 모형과 입자 모형 정리표로 부피가 줄면 입자가 벽에 더 자주 부딪히는 까닭을 찾는 중학교 과학 가상실험실">
 <meta property="og:title" content="송쌤과학 가상실험실 | 보일 법칙 — 기체의 압력과 부피">
 <meta property="og:description" content="주사기를 누르면 압력은 얼마나 커질까요? 압력계와 입자 모형으로 확인해요">
@@ -262,14 +262,14 @@ dialog::backdrop{background:var(--scrim)}
 :root[data-theme="dark"]{
   --glass-hi:#e9f4fb;--glass:#9fc3d833;--glass-lo:#6d8ea3;--glass-edge:#8fb0c4;--grad-ink:#dbe6ef;
   --rub-hi:#5b636d;--rub:#23282e;--rod:#c9d4de;--rod-lo:#7d8a96;
-  --gauge:#27313d;--gauge-edge:#4b5b6c;--lcd:#0f2a1f;--lcd-t:#7ef0b0;--tube:#b0c0cf;
+  --gauge:#2d3946;--gauge-hi:#43515f;--gauge-lo:#1c242e;--gauge-ink:#b0c0cf;--btn-face:#56606b;--gauge-edge:#4b5b6c;--tube:#c9e3f18a;--tube-hi:#eef7fcb0;--tube-lo:#7fa6bd90;--tube-edge:#9cc3d6;--bench:#1d2632;--bench-hi:#2a3646;--bench-edge:#3d4c5e;--vblock:#3b4756;--vblock-edge:#56677a;--rod-hi:#eef3f7;--lcd:#0f2a1f;--lcd-t:#7ef0b0;--tube:#b0c0cf;
   --box:#122033;--box-edge:#5a7892;--gas-tint:#7ab8ff1f;
   --pt-hi:#d6ebff;--pt:#7ab8ff;--flash:#ffb547;--call:#6f879e;
 }
 :root[data-theme="light"]{
   --glass-hi:#ffffff;--glass:#cfe4f1a6;--glass-lo:#8fb3c9;--glass-edge:#6f93aa;--grad-ink:#23313d;
   --rub-hi:#6b737c;--rub:#2c3137;--rod:#eef3f7;--rod-lo:#8a99a6;
-  --gauge:#3b4652;--gauge-edge:#27313d;--lcd:#163a2a;--lcd-t:#9dfcc6;--tube:#8a9aab;
+  --gauge:#3b4652;--gauge-hi:#56636f;--gauge-lo:#2a333d;--gauge-ink:#c9d4de;--btn-face:#8d98a5;--gauge-edge:#27313d;--tube:#d6ecf7b0;--tube-hi:#ffffffd0;--tube-lo:#8fb3c9b0;--tube-edge:#6f93aa;--bench:#cdd6de;--bench-hi:#e4eaef;--bench-edge:#b2c3d0;--vblock:#9aa7b4;--vblock-edge:#7d8a97;--rod-hi:#ffffff;--lcd:#163a2a;--lcd-t:#9dfcc6;--tube:#8a9aab;
   --box:#f2f7fb;--box-edge:#7d90a2;--gas-tint:#1f6fd11a;
   --pt-hi:#8cc1ff;--pt:#1f6fd1;--flash:#d97500;--call:#8a9cad;
 }
@@ -288,10 +288,28 @@ dialog::backdrop{background:var(--scrim)}
 .grad-t{fill:var(--grad-ink);font-size:var(--t12);font-weight:600;text-anchor:middle;font-variant-numeric:tabular-nums}
 .rub-hi-s{stop-color:var(--rub-hi)}.rub-s{stop-color:var(--rub)}
 .rubber{fill:url(#rubberGrad)}
-.rod{fill:var(--rod);stroke:var(--rod-lo);stroke-width:.5}
+.rod{fill:url(#rodGradV);stroke:var(--rod-lo);stroke-width:.5}
 .tube{fill:none;stroke:var(--tube);stroke-width:3.2;stroke-linecap:round}
 .tube-in{fill:none;stroke:var(--stage);stroke-width:1.2;stroke-linecap:round}
-.gauge{fill:var(--gauge);stroke:var(--gauge-edge);stroke-width:.8}
+.gauge{fill:url(#gaugeGrad);stroke:var(--gauge-edge);stroke-width:.8}
+.gauge-hi-s{stop-color:var(--gauge-hi)}.gauge-s{stop-color:var(--gauge)}.gauge-lo-s{stop-color:var(--gauge-lo)}
+.gauge-gloss{fill:#fff;opacity:.12}
+.bezel{fill:var(--gauge-lo);stroke:#000;stroke-opacity:.35;stroke-width:.5}
+.lcd-cap{fill:var(--lcd-t);opacity:.6;font:600 3.6px var(--font-ui);dominant-baseline:central}
+.btn-ring{fill:var(--gauge-lo)}.btn-face{fill:var(--btn-face)}
+.btn-t{fill:var(--gauge-ink);font:600 3.8px var(--font-ui);text-anchor:middle}
+.port{fill:var(--rod-lo);stroke:var(--gauge-edge);stroke-width:.3}
+.tube{fill:url(#tubeGrad);stroke:var(--tube-edge);stroke-width:.4}
+.tube-hi-s{stop-color:var(--tube-hi)}.tube-s{stop-color:var(--tube)}.tube-lo-s{stop-color:var(--tube-lo)}
+.tube-glint{stroke:#fff;stroke-width:.6;opacity:.55;stroke-linecap:round}
+.bench{fill:url(#benchGrad)}.bench-edge{fill:var(--bench-edge)}
+.bench-hi-s{stop-color:var(--bench-hi)}.bench-lo-s{stop-color:var(--bench)}
+.shadow{fill:#000;opacity:.3}
+.vblock{fill:var(--vblock);stroke:var(--vblock-edge);stroke-width:.5;stroke-linejoin:round}
+.rod-web{fill:var(--rod-lo);fill-opacity:.32;stroke:var(--rod-lo);stroke-opacity:.7;stroke-width:.4}
+.rod-glint{fill:#fff;opacity:.5}
+.rub-ring{fill:var(--rub-hi)}
+.rod-hi-s{stop-color:var(--rod-hi)}.rod-lo-s{stop-color:var(--rod-lo)}
 .lcd{fill:var(--lcd)}
 .lcd-t{fill:var(--lcd-t);font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace;text-anchor:end;dominant-baseline:central}
 .lcd-u{fill:var(--lcd-t);font:600 6px var(--font-ui);text-anchor:start;dominant-baseline:central}
@@ -308,7 +326,7 @@ dialog::backdrop{background:var(--scrim)}
 .handle .hit{fill:transparent}
 .handle:focus-visible .ring{opacity:1}
 .ring{fill:none;stroke:var(--focus);stroke-width:1.2;opacity:0}
-.grip{fill:var(--rod);stroke:var(--rod-lo);stroke-width:.6}
+.grip{fill:url(#rodGradV);stroke:var(--rod-lo);stroke-width:.6}
 .grip-arrow{fill:none;stroke:var(--text-2);stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round}
 
 /* 조작·계기 */
@@ -409,6 +427,10 @@ table.rec tr.fresh td{animation:fresh .9s var(--ease-out)}
           <linearGradient id="barrelGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="glass-hi-s"/><stop offset=".25" class="glass-s"/><stop offset=".8" class="glass-s"/><stop offset="1" class="glass-lo-s"/></linearGradient>
           <linearGradient id="rubberGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="rub-hi-s"/><stop offset="1" class="rub-s"/></linearGradient>
           <radialGradient id="ptGrad" cx=".35" cy=".35" r=".7"><stop offset="0" class="pt-hi-s"/><stop offset="1" class="pt-s"/></radialGradient>
+          <linearGradient id="gaugeGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="gauge-hi-s"/><stop offset=".55" class="gauge-s"/><stop offset="1" class="gauge-lo-s"/></linearGradient>
+          <linearGradient id="tubeGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="tube-hi-s"/><stop offset=".45" class="tube-s"/><stop offset="1" class="tube-lo-s"/></linearGradient>
+          <linearGradient id="rodGradV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="rod-lo-s"/><stop offset=".4" class="rod-hi-s"/><stop offset="1" class="rod-lo-s"/></linearGradient>
+          <linearGradient id="benchGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="bench-hi-s"/><stop offset="1" class="bench-lo-s"/></linearGradient>
         </defs>
         <g id="gGauge"></g><g id="gSyr"></g><g id="gCall"></g><g id="gBox"></g><g id="gParts"></g><g id="gFlash"></g><g id="gHandle"></g>
       </svg>
@@ -829,7 +851,7 @@ const Gas = (() => {
 })();
 
 /* ───────── 입자 모형 정리표 (보일·샤를 공용) ─────────
-   천재 교과서 200·210쪽 ‘입자 모형으로 해석하기’ 활동처럼 (가)→(나)에서
+   교과서의 ‘입자 모형으로 해석하기’ 활동처럼 (가)→(나)에서
    입자의 크기·개수·운동 빠르기·충돌이 어떻게 되는지 고르고, 장면의 입자 모형으로 확인한다.
    ModelCheck.create({ mount, key, question, states:[{id,label}], current(), go(id), rows:[{id,name,opts,ans,tip}], summary }) */
 const ModelCheck = (() => {
@@ -879,7 +901,7 @@ const ModelCheck = (() => {
 })();
 
 /* ───────── 보일 법칙 — 압력계에 연결한 주사기 + 확대한 입자 모형 ───────── */
-const APP_VERSION = '2.1', APP_DATE = '2026-10-01';
+const APP_VERSION = '2.2', APP_DATE = '2026-10-01';
 const { $, $$, el, icon, toast, announce, store } = SS;
 
 /* ── 과학 진실층: 온도가 일정할 때 같은 양의 기체 — 처음 40 mL · 1.00 기압 ── */
@@ -904,15 +926,26 @@ const svg = $('#scene');
 let pxu = 2.5;
 function buildStatic() {
   const g = $('#gGauge');
-  el('path', { d: `M66 ${AX}C76 ${AX} 78 ${AX} 88 ${AX}`, class: 'tube' }, g);
-  el('path', { d: `M66 ${AX}C76 ${AX} 78 ${AX} 88 ${AX}`, class: 'tube-in' }, g);
-  el('rect', { x: 8, y: 20, width: 58, height: 54, rx: 6, class: 'gauge' }, g);
-  el('rect', { x: 13, y: 30, width: 48, height: 22, rx: 2, class: 'lcd' }, g);
-  el('text', { id: 'lcdT', x: 49, y: 41, class: 'lcd-t' }, g);
-  el('text', { x: 50, y: 41, class: 'lcd-u' }, g).textContent = '기압';
-  el('circle', { cx: 22, cy: 63, r: 3.2, class: 'gauge', style: 'fill:var(--rod-lo)' }, g);
-  el('circle', { cx: 52, cy: 63, r: 3.2, class: 'gauge', style: 'fill:var(--rod-lo)' }, g);
-  el('text', { x: 37, y: 86, class: 'cap-s mid' }, g).textContent = '디지털 압력계';
+  // 실험대 · 받침(주사기는 V자 받침 두 개에 눕혀 둔다)
+  el('rect', { x: -60, y: 80, width: 450, height: 12, class: 'bench' }, g);
+  el('rect', { x: -60, y: 80, width: 450, height: 1, class: 'bench-edge' }, g);
+  for (const x of [128, 184]) { el('ellipse', { cx: x, cy: 80.4, rx: 9, ry: 1.2, class: 'shadow' }, g); el('path', { d: `M${x - 8} 80V68l5 -6h6l5 6V80Z`, class: 'vblock' }, g); }
+  // 디지털 기체 압력 센서(압력계): 본체 · 화면 테두리 · 단추 · 연결구
+  el('ellipse', { cx: 37, cy: 80.4, rx: 30, ry: 1.6, class: 'shadow' }, g);
+  el('rect', { x: 8, y: 16, width: 58, height: 62, rx: 7, class: 'gauge' }, g);
+  el('rect', { x: 9.5, y: 17.2, width: 55, height: 2.2, rx: 1, class: 'gauge-gloss' }, g);
+  el('rect', { x: 11.5, y: 24, width: 51, height: 26, rx: 3.2, class: 'bezel' }, g);
+  el('rect', { x: 13.5, y: 26, width: 47, height: 22, rx: 2, class: 'lcd' }, g);
+  el('text', { id: 'lcdT', x: 49, y: 37.6, class: 'lcd-t' }, g);
+  el('text', { x: 50, y: 37.6, class: 'lcd-u' }, g).textContent = '기압';
+  el('text', { x: 15.5, y: 29.6, class: 'lcd-cap' }, g).textContent = '압력';
+  [[22, '전원'], [52, '영점']].forEach(([x, t]) => { el('circle', { cx: x, cy: 61, r: 4.2, class: 'btn-ring' }, g); el('circle', { cx: x, cy: 61, r: 3, class: 'btn-face' }, g); el('text', { x, y: 70.5, class: 'btn-t' }, g).textContent = t; });
+  el('rect', { x: 66, y: AX - 3.6, width: 6, height: 7.2, rx: 1.2, class: 'port' }, g);
+  el('path', { d: `M72 ${AX - 2.2}h3l1 1v2.4l-1 1h-3Z`, class: 'port' }, g);
+  // 실리콘 관: 연결구에서 주사기 끝까지(끝에 끼워 막았다)
+  el('path', { d: `M73 ${AX - 2.4}H96.5V${AX + 2.4}H73Z`, class: 'tube' }, g);
+  el('path', { d: `M74 ${AX - 1.2}H95.5`, class: 'tube-glint' }, g);
+  el('text', { x: 8, y: 99, class: 'cap-s' }, g).textContent = '디지털 압력계';
   const s = $('#gSyr');
   el('rect', { x: 88, y: AX - 2, width: 12, height: 4, rx: 1, class: 'barrel' }, s);                  // 주사기 끝(막힘)
   el('path', { d: `M100 ${AX - 3.5}L104 ${IN.y0 - 1.6}V${IN.y1 + 1.6}L100 ${AX + 3.5}Z`, class: 'barrel' }, s);
@@ -926,7 +959,7 @@ function buildStatic() {
   }
   el('text', { x: 212, y: 29, class: 'cap-s' }, s).textContent = 'mL';
   el('g', { id: 'gPlunger' }, s);
-  el('text', { x: 262, y: 88, class: 'cap-s mid cap-long' }, s).textContent = '끝을 막은 50 mL 주사기';
+  el('text', { x: 262, y: 99, class: 'cap-s mid cap-long' }, s).textContent = '끝을 막은 50 mL 주사기';
   // 확대 모형 상자
   el('rect', { id: 'boxR', x: BOX.x, y: BOX.y, width: 10, height: BOX.h, class: 'box' }, $('#gBox'));
   el('g', { id: 'boxP' }, $('#gBox'));
@@ -942,12 +975,15 @@ function render() {
   const V = S.V, X = xg(V), rodEnd = X + 8 + 100;
   $('#gasReal').setAttribute('width', X - X0);
   const p = $('#gPlunger'); p.innerHTML = '';
+  // 피스톤 막대: 十자 날개(옆에서 보면 가운데 판 + 위아래 날개) · 고무 마개(고리 두 줄) · 엄지 누름판
+  el('rect', { x: X + 8, y: IN.y0 + 1.6, width: 100, height: IN.y1 - IN.y0 - 3.2, rx: .8, class: 'rod-web' }, p);
   el('rect', { x: X + 8, y: AX - 4, width: 100, height: 8, rx: 1, class: 'rod' }, p);
-  el('rect', { x: X + 10, y: AX - 9, width: 96, height: 1.2, class: 'rod' }, p);
-  el('rect', { x: X + 10, y: AX + 7.8, width: 96, height: 1.2, class: 'rod' }, p);
+  el('rect', { x: X + 9, y: AX - 2.2, width: 98, height: 1.4, class: 'rod-glint' }, p);
   el('rect', { x: X, y: IN.y0, width: 8, height: IN.y1 - IN.y0, rx: 1, class: 'rubber' }, p);
-  el('rect', { x: X + 2.5, y: IN.y0, width: 1, height: IN.y1 - IN.y0, style: 'fill:var(--rub-hi)' }, p);
-  el('rect', { x: rodEnd, y: 24, width: 4.5, height: 46, rx: 2, class: 'grip' }, p);
+  el('rect', { x: X + 1.2, y: IN.y0 - .4, width: 1.6, height: IN.y1 - IN.y0 + .8, rx: .6, class: 'rub-ring' }, p);
+  el('rect', { x: X + 5.2, y: IN.y0 - .4, width: 1.6, height: IN.y1 - IN.y0 + .8, rx: .6, class: 'rub-ring' }, p);
+  el('rect', { x: rodEnd, y: 22, width: 5, height: 50, rx: 2.2, class: 'grip' }, p);
+  el('rect', { x: rodEnd + 1, y: 24, width: 1.2, height: 46, rx: .6, class: 'rod-glint' }, p);
   // 손잡이 자리
   $('#hHit').setAttribute('x', rodEnd - 16); $('#hHit').setAttribute('y', 18); $('#hHit').setAttribute('width', 36); $('#hHit').setAttribute('height', 58);
   $('#hRing').setAttribute('x', rodEnd - 5); $('#hRing').setAttribute('y', 21); $('#hRing').setAttribute('width', 14.5); $('#hRing').setAttribute('height', 52);
@@ -1091,14 +1127,14 @@ function theory() {
   <article class="tcard"><h3>생활 속에서</h3>
     <p class="def">주변 압력이 달라지면 기체의 부피도 달라져요.</p>
     <p>높은 산이나 비행기 안에서 과자 봉지가 부풀고, 잠수부가 내뿜은 공기 방울은 수면 가까이 올수록 커져요. 하늘 높이 올라간 풍선은 커지다 터져요. 짐을 많이 실은 자동차 바퀴, 범퍼카의 완충 장치, 공기 주머니 운동화는 눌리면 부피가 줄어요. 헬륨 같은 기체는 높은 압력으로 부피를 줄여 통에 담아요.</p></article>
-  <article class="tcard"><h3>교과서에서는</h3>
-    <p class="def">세 교과서 모두 주사기를 압력 센서(압력계)에 연결해 부피를 줄여 가며 압력을 재고, 입자 모형으로 해석해요.</p>
+  <article class="tcard"><h3>교과서 탐구와 연결</h3>
+    <p class="def">교과서에서는 주사기를 압력 센서(압력계)에 연결해 부피를 줄여 가며 압력을 재고, 입자 모형으로 해석해요.</p>
     <ul class="tb-list">
-      <li><b>천재</b> 196~204쪽 — 구슬을 넣은 페트병 흔들기(기체의 압력), 20 mL 주사기를 18·16·14·12·10 mL로 줄이며 압력 측정, 입자 모형 해석표(입자의 크기·개수·빠르기·충돌 횟수)</li>
-      <li><b>동아</b> 187~195쪽 — 종이 찰흙에서 압력 비교, 탄산수 페트병 누르기, 20 mL 주사기와 무선 기체 압력 센서, 감압 용기 속 풍선</li>
-      <li><b>비상</b> 198~209쪽 — 스펀지 위 페트병, 쇠구슬 페트병, 60 mL 주사기 40 mL에서 시작해 압력 센서(압력계)로 측정, 입자 모형 그리기</li>
+      <li>구슬을 넣은 페트병을 흔들어 기체의 압력 느껴 보기</li>
+      <li>주사기의 부피를 줄여 가며 압력을 재고 그래프 그리기</li>
+      <li>피스톤을 누르기 전과 후의 입자 모형 비교하기 — 크기·개수·빠르기·충돌 횟수</li>
     </ul>
-    <p class="link">‘입자 모형 정리’ 탭은 천재 교과서 200쪽의 해석표를 이 실험실의 입자 모형으로 확인하는 활동이에요.</p></article>`;
+    <p class="link">‘입자 모형 정리’ 탭은 교과서의 입자 모형 해석 활동을 이 실험실의 입자 모형으로 확인하는 활동이에요.</p></article>`;
 }
 const HELP = {
   how: `<ol><li>주사기 오른쪽 끝 <b>손잡이</b>를 좌우로 끌거나 아래 막대·부피 칩으로 기체의 부피를 바꿔요. 압력계에 압력이 나타나요.</li>
@@ -1110,7 +1146,7 @@ const HELP = {
     <li>압력계 값은 ‘압력 × 부피가 일정’한 모형으로 계산했어요(주사기 끝과 관 속 부피는 넣지 않음). 부피는 고무마개 앞면의 눈금을 1 mL 단위로 읽어요.</li>
     <li>입자 모형은 주사기 속 기체를 3배로 키워 그렸고, 입자의 크기·개수·빠르기는 실제와 달라요. 온도가 일정하므로 모든 입자가 같은 빠르기로 움직이도록 단순화했어요(서로 부딪혀도 방향만 바뀜). 충돌 횟수는 모형 속 입자 22개가 피스톤 벽에 부딪힌 횟수를 최근 2초 동안 평균한 값이라 조금씩 흔들려요.</li>
     <li>2022 개정 교육과정에 따라 수식 계산은 하지 않고 실험 결과와 입자 모형으로 관계를 해석해요.</li></ul>`,
-  source: '<p>2022 개정 중학교 과학 ‘기체의 성질’ — [9과06-01] 압력의 의미를 알고, 기체의 압력을 입자의 운동으로 설명할 수 있다. [9과06-02] 기체의 압력과 부피 관계를 실험 결과로부터 알아내고, 이를 입자 모형으로 해석할 수 있다. </p><p>교과서: 천재교육(임성숙) 중학교 과학 1 196~204쪽, 동아출판 187~195쪽, 비상교육 198~209쪽의 탐구(주사기와 압력 센서), 입자 모형 해석표, 생활 속 예를 따랐어요. 그림은 새로 그렸어요. 이전 판(보일의 법칙 인포그래픽)을 주사기 실험으로 다시 만들었어요.</p>',
+  source: '<p>2022 개정 중학교 과학 ‘기체의 성질’ — [9과06-01] 압력의 의미를 알고, 기체의 압력을 입자의 운동으로 설명할 수 있다. [9과06-02] 기체의 압력과 부피 관계를 실험 결과로부터 알아내고, 이를 입자 모형으로 해석할 수 있다. </p><p>중학교 과학 교과서의 탐구(주사기와 압력 센서), 입자 모형 해석 활동, 생활 속 예를 바탕으로 만들었고, 그림은 모두 새로 그렸어요. 이전 판(보일의 법칙 인포그래픽)을 주사기 실험으로 다시 만들었어요.</p>',
   wipe: '기록표, 그래프, 예측, 주사기 부피, 입자 모형 정리',
 };
 
@@ -1148,7 +1184,7 @@ function bind() {
   });
 }
 buildStatic(); bind();
-/* ── 입자 모형 정리표 (천재 200~201쪽 ‘기체의 압력에 따른 부피 변화를 입자 모형으로 해석하기’) ── */
+/* ── 입자 모형 정리표 (교과서의 ‘기체의 압력에 따른 부피 변화를 입자 모형으로 해석하기’ 활동) ── */
 let dTab = store.get('dtab', 'g');
 function setDTab(v) {
   dTab = v; store.set('dtab', v);
