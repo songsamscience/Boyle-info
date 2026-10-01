@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="dark light">
-<meta name="version" content="2.0">
-<meta name="description" content="끝을 막은 주사기의 피스톤을 밀고 당기며 압력계로 압력을 재고, 확대한 입자 모형에서 부피가 줄면 입자가 벽에 더 자주 부딪히는 모습을 보며 기체의 압력과 부피 관계를 찾는 중학교 과학 가상실험실">
+<meta name="version" content="2.1">
+<meta name="description" content="끝을 막은 주사기의 피스톤을 밀고 당기며 압력계로 압력을 재고, 확대한 입자 모형과 입자 모형 정리표로 부피가 줄면 입자가 벽에 더 자주 부딪히는 까닭을 찾는 중학교 과학 가상실험실">
 <meta property="og:title" content="송쌤과학 가상실험실 | 보일 법칙 — 기체의 압력과 부피">
 <meta property="og:description" content="주사기를 누르면 압력은 얼마나 커질까요? 압력계와 입자 모형으로 확인해요">
 <meta property="og:type" content="website">
@@ -204,6 +204,9 @@ dialog::backdrop{background:var(--scrim)}
 .tcard .def{font:700 15px/1.6 var(--font-ui);margin-bottom:6px}
 .tcard p{font-size:15px;line-height:1.7;color:var(--text-1)}
 .tcard p+p{margin-top:6px}
+.tcard .tb-list{margin:4px 0 0;padding:0 0 0 18px;display:grid;gap:5px}
+.tcard .tb-list li{font-size:14px;line-height:1.6;color:var(--text-1)}
+.tcard .tb-list b{font-weight:800}
 .tcard .link{margin-top:10px;padding:10px 12px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 var(--r-1) var(--r-1) 0;font-size:15px;line-height:1.65}
 .toast{position:fixed;left:50%;bottom:calc(20px + var(--strip-h) + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:80;display:flex;align-items:center;gap:10px;max-width:min(360px,calc(100vw - 24px));padding:10px 14px;border-radius:var(--r-2);background:var(--surface-1);border:1px solid var(--line-2);box-shadow:var(--edge-hi),var(--shadow-2);font:500 13px/1.5 var(--font-ui);color:var(--text-1)}
 .toast.error{border-color:var(--danger)}
@@ -231,6 +234,30 @@ dialog::backdrop{background:var(--scrim)}
 @media (max-width:360px){.icon-btn{width:38px}.utilities{gap:0}}
 
 /* ═══════ 이 실험실 ═══════ */
+/* 입자 모형 정리표 (보일·샤를 공용) */
+.mc{display:flex;flex-direction:column;gap:10px}
+.mc-q{font:700 15px/1.5 var(--font-ui);color:var(--text-1)}
+.mc-go{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.mc-go .lbl{margin-right:2px}
+.mc-rows{display:grid;gap:6px}
+.mc-row{display:grid;grid-template-columns:minmax(96px,auto) minmax(0,1fr) 22px;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--line-1);border-radius:var(--r-2)}
+.mc-row.ok{border-color:var(--ok);background:var(--ok-soft)}
+.mc-row.no{border-color:var(--warn);background:var(--warn-soft)}
+.mc-n{font:700 13px/1.3 var(--font-ui);color:var(--text-1)}
+.mc-opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+.mc-opts button{min-height:34px;padding:0 4px;border:1px solid var(--line-2);border-radius:var(--r-1);background:var(--surface-1);color:var(--text-1);font:600 13px/1.2 var(--font-ui);cursor:pointer;white-space:nowrap}
+.mc-opts button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);font-weight:800}
+.mc-mk{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;font:800 13px/1 var(--font-ui);color:var(--warn)}
+.mc-row.ok .mc-mk{background:var(--ok);color:var(--surface-1)}
+.mc-mk svg{width:13px;height:13px;stroke-width:2.6}
+.mc-tip{grid-column:1 / -1;font:500 13px/1.5 var(--font-ui);color:var(--text-1)}
+.mc-act{display:flex;align-items:center;gap:8px}
+.mc-act .btn.primary{min-height:42px;padding:0 18px}
+.mc-fb{font:500 14px/1.6 var(--font-ui);color:var(--text-1)}
+.mc-fb b{font-weight:800}
+@media (hover:hover) and (pointer:fine){.mc-opts button:not([aria-pressed="true"]):hover{border-color:var(--text-2)}}
+@media (max-width:600px){.mc-row{grid-template-columns:minmax(0,1fr) 22px}.mc-opts{grid-column:1 / -1;grid-row:2}}
+
 /* 보일 법칙 — 장면(주사기+확대 모형) 위, 부피·계기 아래 │ 오른쪽 그래프·기록표 (분할형) */
 :root[data-theme="dark"]{
   --glass-hi:#e9f4fb;--glass:#9fc3d833;--glass-lo:#6d8ea3;--glass-edge:#8fb0c4;--grad-ink:#dbe6ef;
@@ -311,6 +338,10 @@ dialog::backdrop{background:var(--scrim)}
 /* 그래프·기록표 */
 .data{grid-column:2;grid-row:1 / span 2;display:flex;flex-direction:column;min-height:0;padding:12px 18px 14px;border-left:1px solid var(--line-1);background:var(--surface-1)}
 .g-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.dtabs{align-self:flex-start;margin-bottom:10px;flex:none}
+.dmain{display:flex;flex-direction:column;flex:1;min-height:0}
+.dmain[hidden],#mcBox[hidden]{display:none}
+#mcBox{flex:1;min-height:0;overflow:auto;padding-right:4px}
 .cap{font:700 15px/1.3 var(--font-ui);color:var(--text-1)}
 #graph{width:100%;height:auto;max-height:52%;flex:none}
 .g-grid{stroke:var(--line-1);stroke-width:1}.g-axis{stroke:var(--line-2);stroke-width:1.2}
@@ -401,13 +432,20 @@ table.rec tr.fresh td{animation:fresh .9s var(--ease-out)}
     <div class="recw"><button class="btn primary" id="recBtn"></button><p class="rhint" id="rHint">부피를 바꿀 때마다 기록해요.</p></div>
   </section>
 
-  <section class="data" aria-label="기록표와 그래프">
+  <section class="data" aria-label="기록표와 그래프 · 입자 모형 정리">
+    <div class="seg dtabs" id="dataSeg" role="tablist" aria-label="오른쪽 칸 고르기">
+      <button role="tab" id="tabG" data-v="g" aria-selected="true" aria-controls="dMain">그래프·기록표</button>
+      <button role="tab" id="tabM" data-v="m" aria-selected="false" aria-controls="mcBox">입자 모형 정리</button>
+    </div>
+    <div class="dmain" id="dMain" role="tabpanel" aria-labelledby="tabG">
     <div class="g-head"><h3 class="cap">압력과 부피 그래프</h3><button class="btn small ghost" id="undoBtn"></button></div>
     <svg id="graph" viewBox="0 0 380 250" role="img" aria-label="부피와 압력의 그래프"></svg>
     <p class="find note-slot" id="find"></p>
     <div class="tbl-scroll scroll">
       <table class="rec"><thead><tr><th scope="col">부피 (mL)</th><th scope="col">압력 (기압)</th></tr></thead><tbody id="recBody"></tbody></table>
     </div>
+    </div>
+    <div class="mc scroll" id="mcBox" role="tabpanel" aria-labelledby="tabM" hidden></div>
   </section>
 </div>
 
@@ -790,8 +828,58 @@ const Gas = (() => {
   return { create, setL, setSpeed, step, rate, speeds };
 })();
 
+/* ───────── 입자 모형 정리표 (보일·샤를 공용) ─────────
+   천재 교과서 200·210쪽 ‘입자 모형으로 해석하기’ 활동처럼 (가)→(나)에서
+   입자의 크기·개수·운동 빠르기·충돌이 어떻게 되는지 고르고, 장면의 입자 모형으로 확인한다.
+   ModelCheck.create({ mount, key, question, states:[{id,label}], current(), go(id), rows:[{id,name,opts,ans,tip}], summary }) */
+const ModelCheck = (() => {
+  const { icon, announce, store, toast } = SS;
+  function create(o) {
+    const key = o.key || 'mc', root = o.mount;
+    const fresh = () => ({ pick: {}, checked: false });
+    let st = Object.assign(fresh(), store.get(key, {}));
+    const save = () => store.set(key, st);
+    const nPicked = () => o.rows.filter(r => st.pick[r.id] != null).length;
+    function render() {
+      const res = st.checked ? o.rows.map(r => st.pick[r.id] === r.ans) : null, cur = o.current();
+      const allOk = res && res.every(Boolean);
+      root.innerHTML = `<p class="mc-q">${o.question}</p>
+        <div class="mc-go" role="group" aria-label="장면에서 두 상태 보기"><span class="lbl">장면에서 보기</span>${o.states.map(s => `<button class="chip" data-mcgo="${s.id}" aria-pressed="${cur === s.id}">${s.label}</button>`).join('')}</div>
+        <div class="mc-rows">${o.rows.map((r, i) => `<div class="mc-row${res ? (res[i] ? ' ok' : ' no') : ''}" role="group" aria-label="${r.name}">
+            <span class="mc-n">${r.name}</span>
+            <span class="mc-opts">${r.opts.map((t, j) => `<button data-mcr="${r.id}" data-j="${j}" aria-pressed="${st.pick[r.id] === j}">${t}</button>`).join('')}</span>
+            <span class="mc-mk" aria-hidden="true">${res ? (res[i] ? icon('check') : '?') : ''}</span>
+            ${res && !res[i] ? `<span class="mc-tip">${r.tip}</span>` : ''}
+          </div>`).join('')}</div>
+        <div class="mc-act"><button class="btn primary" data-mcact="check" aria-disabled="${nPicked() < o.rows.length}">${icon('check')}확인하기</button><button class="btn ghost small" data-mcact="reset">${icon('reset')}다시 고르기</button></div>
+        <p class="mc-fb" aria-live="polite">${allOk ? `<b>모두 맞았어요.</b> ${o.summary}` : res ? `${res.filter(Boolean).length}/${o.rows.length} 맞았어요. ? 표시한 줄은 장면의 입자 모형을 다시 볼까요?` : `${o.rows.length}줄을 모두 고르면 확인할 수 있어요. 위의 두 단추로 장면을 (가)·(나)로 바꿔 보며 골라요.`}</p>`;
+    }
+    function refocus(sel) { const b = root.querySelector(sel); if (b) b.focus(); }
+    root.addEventListener('click', e => {
+      const g = e.target.closest('[data-mcgo]');
+      if (g) { o.go(g.dataset.mcgo); render(); refocus(`[data-mcgo="${g.dataset.mcgo}"]`); return; }
+      const r = e.target.closest('[data-mcr]');
+      if (r) { st.pick[r.dataset.mcr] = +r.dataset.j; st.checked = false; save(); render(); refocus(`[data-mcr="${r.dataset.mcr}"][data-j="${r.dataset.j}"]`); return; }
+      const a = e.target.closest('[data-mcact]'); if (!a) return;
+      if (a.dataset.mcact === 'reset') { st = fresh(); save(); render(); refocus('[data-mcact="reset"]'); return; }
+      if (nPicked() < o.rows.length) { toast('모든 줄을 고른 뒤 확인해요.'); return; }
+      st.checked = true; save(); render(); refocus('[data-mcact="check"]');
+      const n = o.rows.filter(rr => st.pick[rr.id] === rr.ans).length;
+      announce(n === o.rows.length ? '모두 맞았어요' : `${o.rows.length}개 가운데 ${n}개 맞았어요`);
+    });
+    render();
+    let lastCur = o.current();
+    function sync() {   // 장면이 바뀌면 (가)·(나) 단추 표시만 고친다(포커스를 잃지 않게)
+      const c = o.current(); if (c === lastCur) return; lastCur = c;
+      root.querySelectorAll('[data-mcgo]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mcgo === c)));
+    }
+    return { render, sync, state: () => st, ok: () => st.checked && o.rows.every(r => st.pick[r.id] === r.ans), wipe() { st = fresh(); save(); render(); } };
+  }
+  return { create };
+})();
+
 /* ───────── 보일 법칙 — 압력계에 연결한 주사기 + 확대한 입자 모형 ───────── */
-const APP_VERSION = '2.0', APP_DATE = '2026-10-01';
+const APP_VERSION = '2.1', APP_DATE = '2026-10-01';
 const { $, $$, el, icon, toast, announce, store } = SS;
 
 /* ── 과학 진실층: 온도가 일정할 때 같은 양의 기체 — 처음 40 mL · 1.00 기압 ── */
@@ -925,7 +1013,7 @@ function renderPred() {
   if (S.pred === 'skip' || S.predDone && S.predClosed) { p.innerHTML = ''; return; }
   if (!S.pred) { p.innerHTML = `<span class="q">예측해 볼까요? 부피를 40 mL에서 절반(20 mL)으로 줄이면 압력은…</span>${Object.entries(PRED).map(([k, t]) => `<button class="chip" data-pred="${k}">${t}</button>`).join('')}<button class="btn small ghost" data-pred="skip">건너뛰기</button>`; return; }
   if (!S.predDone) { p.innerHTML = `<span class="res">내 예측: <b>${PRED[S.pred]}</b> — 피스톤을 눌러 20 mL로 줄여 확인해 보세요.</span>`; return; }
-  p.innerHTML = `<span class="res">내 예측: <b>${PRED[S.pred]}</b> · 결과: 압력 1.00 → <b>2.00 기압</b>(2배)</span><button class="btn small ghost" data-pred="close">닫기</button>`;
+  p.innerHTML = `<span class="res">내 예측: <b>${PRED[S.pred]}</b> · 결과: 압력 1.00 → <b>2.00 기압</b>(2배)</span><button class="btn small" data-tomc>입자 모형 정리하기</button><button class="btn small ghost" data-pred="close">닫기</button>`;
 }
 function checkPred() { if (S.pred && S.pred !== 'skip' && !S.predDone && Math.round(S.V) === 20) { S.predDone = true; save(); renderPred(); announce('압력이 1.00에서 2.00 기압으로 2배가 됐어요'); } }
 function record() {
@@ -980,33 +1068,50 @@ function step(dt) {
 /* ═════════ 원리 카드 · 도움말 ═════════ */
 function theory() {
   const byV = Object.fromEntries(recs.map(r => [r.V, r.P]));
-  return `<article class="tcard"><h3>기체의 압력</h3>
+  return `<article class="tcard"><h3>압력이란</h3>
+    <figure><svg viewBox="0 0 300 96" role="img" aria-label="같은 벽돌을 눕혀 놓을 때보다 세워 놓을 때 스펀지가 더 깊이 눌린다">
+      <rect width="300" height="96" style="fill:var(--stage)"/>
+      ${[[70, 70, 22, 4], [220, 22, 70, 12]].map(([x, w, h, d]) => `<path d="M${x - 58} 70h116v18h-116Z" style="fill:var(--flash);opacity:.35"/><path d="M${x - w / 2} ${70 + d}h${w}" style="stroke:var(--flash);stroke-width:2"/><rect x="${x - w / 2}" y="${70 + d - h}" width="${w}" height="${h}" rx="2" style="fill:var(--rub-hi)"/>`).join('')}
+      <text x="70" y="22" style="fill:var(--text-1);font:700 12px var(--font-ui);text-anchor:middle">넓은 면 — 조금 눌림</text><text x="220" y="22" style="fill:var(--text-1);font:700 12px var(--font-ui);text-anchor:middle">좁은 면 — 깊이 눌림</text>
+    </svg></figure>
+    <p class="def">압력은 일정한 넓이(면적)에 작용하는 힘이에요.</p>
+    <p>같은 크기의 힘이라도 힘을 받는 면적이 좁을수록, 같은 면적이면 힘이 클수록 압력이 커요. 눈썰매·갯벌 널빤지는 면적을 넓혀 압력을 줄이고, 못·바늘·빨대의 뾰족한 끝은 면적을 좁혀 압력을 키워요.</p></article>
+  <article class="tcard"><h3>기체의 압력</h3>
     <figure><svg viewBox="0 0 300 100" role="img" aria-label="기체 입자가 용기 벽에 부딪히며 힘을 가한다">
       <rect width="300" height="100" style="fill:var(--stage)"/><rect x="30" y="14" width="240" height="72" style="fill:var(--box);stroke:var(--box-edge)"/>
       ${[[70, 40, 1, -1], [120, 64, -1, 1], [170, 30, 1, 1], [215, 60, 1, -1], [95, 30, 1, 1], [245, 36, 1, 1]].map(([x, y, a, b]) => `<circle cx="${x}" cy="${y}" r="7" style="fill:var(--pt)"/><path d="M${x} ${y}l${a * 14} ${b * 10}" style="stroke:var(--text-2);stroke-width:1.5"/>`).join('')}
       <path d="M270 28v16M270 52v16" style="stroke:var(--flash);stroke-width:4;stroke-linecap:round"/>
     </svg></figure>
     <p class="def">기체의 압력은 기체 입자가 움직이며 용기 벽에 부딪혀 일정한 넓이에 가하는 힘이에요.</p>
-    <p>입자가 벽에 더 자주, 더 세게 부딪힐수록 압력이 커져요.</p></article>
+    <p>입자는 모든 방향으로 운동하므로 기체의 압력은 모든 방향으로 작용해요. 그래서 풍선이 둥글게 부풀어요. 같은 용기에 입자가 많을수록 벽에 더 자주 부딪혀 압력이 커져요. 지구를 둘러싼 공기가 누르는 압력은 대기압이고, 지표 부근에서 약 1 기압이에요.</p></article>
   <article class="tcard"><h3>부피가 줄면 압력이 커져요</h3>
     <p class="def">온도가 일정할 때 기체의 부피가 줄면 압력이 커지고, 부피가 늘면 압력이 작아져요.</p>
-    <p>피스톤을 눌러도 입자의 수와 크기, 빠르기는 그대로예요. 입자가 움직일 공간이 좁아져 같은 넓이의 벽에 더 자주 부딪히기 때문에 압력이 커져요.</p>
+    <p>피스톤을 눌러도 입자의 수와 크기, 운동 빠르기는 그대로예요. 입자 사이의 거리가 가까워져 같은 넓이의 벽에 더 자주 부딪히기 때문에 압력이 커져요. 입자의 빠르기는 온도가 변해야 달라져요. 이 관계는 1662년 보일이 J자 관 실험으로 발표해 보일 법칙이라고 해요.</p>
     <p class="link">${byV[40] != null && byV[20] != null ? `내 기록: 40 mL ${f2(byV[40])} 기압 → 20 mL ${f2(byV[20])} 기압. 부피가 절반이 되자 압력이 2배가 됐어요.` : '40 mL와 20 mL를 모두 기록해 압력을 비교해 보세요.'}</p></article>
   <article class="tcard"><h3>생활 속에서</h3>
     <p class="def">주변 압력이 달라지면 기체의 부피도 달라져요.</p>
-    <p>높은 산에 올라가면 과자 봉지가 부풀어요(바깥 압력이 낮아짐). 물속 깊은 곳에서 나온 공기 방울은 위로 올라갈수록 커져요. 공기를 넣은 풍선을 누르면 부피가 줄고 더 단단해져요.</p></article>`;
+    <p>높은 산이나 비행기 안에서 과자 봉지가 부풀고, 잠수부가 내뿜은 공기 방울은 수면 가까이 올수록 커져요. 하늘 높이 올라간 풍선은 커지다 터져요. 짐을 많이 실은 자동차 바퀴, 범퍼카의 완충 장치, 공기 주머니 운동화는 눌리면 부피가 줄어요. 헬륨 같은 기체는 높은 압력으로 부피를 줄여 통에 담아요.</p></article>
+  <article class="tcard"><h3>교과서에서는</h3>
+    <p class="def">세 교과서 모두 주사기를 압력 센서(압력계)에 연결해 부피를 줄여 가며 압력을 재고, 입자 모형으로 해석해요.</p>
+    <ul class="tb-list">
+      <li><b>천재</b> 196~204쪽 — 구슬을 넣은 페트병 흔들기(기체의 압력), 20 mL 주사기를 18·16·14·12·10 mL로 줄이며 압력 측정, 입자 모형 해석표(입자의 크기·개수·빠르기·충돌 횟수)</li>
+      <li><b>동아</b> 187~195쪽 — 종이 찰흙에서 압력 비교, 탄산수 페트병 누르기, 20 mL 주사기와 무선 기체 압력 센서, 감압 용기 속 풍선</li>
+      <li><b>비상</b> 198~209쪽 — 스펀지 위 페트병, 쇠구슬 페트병, 60 mL 주사기 40 mL에서 시작해 압력 센서(압력계)로 측정, 입자 모형 그리기</li>
+    </ul>
+    <p class="link">‘입자 모형 정리’ 탭은 천재 교과서 200쪽의 해석표를 이 실험실의 입자 모형으로 확인하는 활동이에요.</p></article>`;
 }
 const HELP = {
   how: `<ol><li>주사기 오른쪽 끝 <b>손잡이</b>를 좌우로 끌거나 아래 막대·부피 칩으로 기체의 부피를 바꿔요. 압력계에 압력이 나타나요.</li>
     <li>부피를 바꿀 때마다 <b>기록하기</b>. 기록표와 그래프에 점이 쌓여요. 처음(40 mL)과 절반(20 mL)을 꼭 비교해요.</li>
-    <li>아래 <b>입자 모형</b>에서 피스톤 벽에 부딪히는 입자(주황 표시)와 충돌 횟수를 보세요.</li></ol>`,
+    <li>아래 <b>입자 모형</b>에서 피스톤 벽에 부딪히는 입자(주황 표시)와 충돌 횟수를 보세요.</li>
+    <li>오른쪽 <b>입자 모형 정리</b> 탭에서 (가) 40 mL와 (나) 20 mL를 오가며 입자의 크기·개수·빠르기·거리·충돌 횟수·압력이 어떻게 되는지 고르고 확인해요.</li></ol>`,
   keys: '손잡이에 포커스: <kbd>←</kbd><kbd>→</kbd> 1 mL · <kbd>PageUp</kbd><kbd>PageDown</kbd> 5 mL',
   model: `<ul><li>끝을 막은 50 mL 주사기에 처음 40 mL의 공기가 1.00 기압(약 101 kPa)으로 들어 있어요. 온도는 일정하고 공기가 새지 않는다고 보았어요.</li>
     <li>압력계 값은 ‘압력 × 부피가 일정’한 모형으로 계산했어요(주사기 끝과 관 속 부피는 넣지 않음). 부피는 고무마개 앞면의 눈금을 1 mL 단위로 읽어요.</li>
-    <li>입자 모형은 주사기 속 기체를 3배로 키워 그렸고, 입자의 크기·개수·빠르기는 실제와 달라요. 온도가 일정하므로 모든 입자가 같은 빠르기로 움직이도록 단순화했어요(서로 부딪혀도 방향만 바뀜). 충돌 횟수는 모형 속 입자 24개가 피스톤 벽에 부딪힌 횟수를 최근 2초 동안 평균한 값이라 조금씩 흔들려요.</li>
+    <li>입자 모형은 주사기 속 기체를 3배로 키워 그렸고, 입자의 크기·개수·빠르기는 실제와 달라요. 온도가 일정하므로 모든 입자가 같은 빠르기로 움직이도록 단순화했어요(서로 부딪혀도 방향만 바뀜). 충돌 횟수는 모형 속 입자 22개가 피스톤 벽에 부딪힌 횟수를 최근 2초 동안 평균한 값이라 조금씩 흔들려요.</li>
     <li>2022 개정 교육과정에 따라 수식 계산은 하지 않고 실험 결과와 입자 모형으로 관계를 해석해요.</li></ul>`,
-  source: '<p>2022 개정 중학교 과학 ‘기체의 성질’ — [9과06-01] 압력의 의미를 알고, 기체의 압력을 입자의 운동으로 설명할 수 있다. [9과06-02] 기체의 압력과 부피 관계를 실험 결과로부터 알아내고, 이를 입자 모형으로 해석할 수 있다. 이전 판(보일의 법칙 인포그래픽)을 주사기 실험으로 다시 만들었어요.</p>',
-  wipe: '기록표, 그래프, 예측, 주사기 부피',
+  source: '<p>2022 개정 중학교 과학 ‘기체의 성질’ — [9과06-01] 압력의 의미를 알고, 기체의 압력을 입자의 운동으로 설명할 수 있다. [9과06-02] 기체의 압력과 부피 관계를 실험 결과로부터 알아내고, 이를 입자 모형으로 해석할 수 있다. </p><p>교과서: 천재교육(임성숙) 중학교 과학 1 196~204쪽, 동아출판 187~195쪽, 비상교육 198~209쪽의 탐구(주사기와 압력 센서), 입자 모형 해석표, 생활 속 예를 따랐어요. 그림은 새로 그렸어요. 이전 판(보일의 법칙 인포그래픽)을 주사기 실험으로 다시 만들었어요.</p>',
+  wipe: '기록표, 그래프, 예측, 주사기 부피, 입자 모형 정리',
 };
 
 /* ═════════ 이벤트 · 시작 ═════════ */
@@ -1032,7 +1137,10 @@ function bind() {
   $('#volRng').addEventListener('input', e => { anim = null; setV(+e.target.value); });
   $('#volRng').addEventListener('change', () => { save(); renderGraph(); });
   $$('.ctl [data-v]').forEach(c => c.addEventListener('click', () => animateTo(+c.dataset.v)));
+  $('#dataSeg').addEventListener('click', e => { const b = e.target.closest('[role=tab]'); if (b) setDTab(b.dataset.v); });
+  $('#dataSeg').addEventListener('keydown', e => { if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); setDTab(dTab === 'g' ? 'm' : 'g'); $(`#dataSeg [data-v="${dTab}"]`).focus(); } });
   $('#pred').addEventListener('click', e => {
+    if (e.target.closest('[data-tomc]')) { setDTab('m'); $('#mcBox').scrollTop = 0; return; }
     const b = e.target.closest('[data-pred]'); if (!b) return;
     const k = b.dataset.pred;
     if (k === 'close') S.predClosed = true; else S.pred = k;
@@ -1040,14 +1148,39 @@ function bind() {
   });
 }
 buildStatic(); bind();
+/* ── 입자 모형 정리표 (천재 200~201쪽 ‘기체의 압력에 따른 부피 변화를 입자 모형으로 해석하기’) ── */
+let dTab = store.get('dtab', 'g');
+function setDTab(v) {
+  dTab = v; store.set('dtab', v);
+  $$('#dataSeg [role=tab]').forEach(b => { b.setAttribute('aria-selected', String(b.dataset.v === v)); b.tabIndex = b.dataset.v === v ? 0 : -1; });
+  $('#dMain').hidden = v !== 'g'; $('#mcBox').hidden = v !== 'm';
+  if (v === 'g') renderGraph(); else mc.render();
+}
+const mc = ModelCheck.create({
+  mount: $('#mcBox'), key: 'mc',
+  question: '일정한 온도에서 피스톤을 눌러 기체의 부피를 (가) 40 mL에서 (나) 20 mL로 줄였어요. (나)에서는 어떻게 될까요?',
+  states: [{ id: 'a', label: '(가) 40 mL' }, { id: 'b', label: '(나) 20 mL' }],
+  current: () => Math.round(S.V) === 40 ? 'a' : Math.round(S.V) === 20 ? 'b' : null,
+  go: id => { animateTo(id === 'a' ? 40 : 20); },
+  rows: [
+    { id: 'size', name: '입자의 크기', opts: ['커져요', '그대로', '작아져요'], ans: 1, tip: '입자 모형에서 (가)와 (나)의 공 크기를 비교해 보세요. 입자 하나하나는 변하지 않아요.' },
+    { id: 'count', name: '입자의 개수', opts: ['많아져요', '그대로', '적어져요'], ans: 1, tip: '주사기 끝이 막혀 있어 입자가 드나들 수 없어요. 모형의 입자 수를 세어 보세요.' },
+    { id: 'speed', name: '입자의 운동 빠르기', opts: ['빨라져요', '그대로', '느려져요'], ans: 1, tip: '온도가 일정해요. 입자가 움직이는 빠르기를 (가)와 (나)에서 비교해 보세요.' },
+    { id: 'dist', name: '입자 사이의 거리', opts: ['멀어져요', '그대로', '가까워져요'], ans: 2, tip: '같은 수의 입자가 더 좁은 공간에 들어 있으면 입자 사이는 어떻게 될까요?' },
+    { id: 'hits', name: '벽에 충돌하는 횟수', opts: ['늘어요', '그대로', '줄어요'], ans: 0, tip: '‘피스톤 벽에 부딪힌 횟수’ 계기를 (가)와 (나)에서 비교해 보세요.' },
+    { id: 'pres', name: '기체의 압력', opts: ['커져요', '그대로', '작아져요'], ans: 0, tip: '압력계 값을 (가)와 (나)에서 비교해 보세요.' },
+  ],
+  summary: '일정한 온도에서 기체에 작용하는 압력이 커지면 입자의 크기·개수·운동 빠르기는 그대로이고, 입자 사이의 거리가 가까워져요. 그래서 입자가 벽에 충돌하는 횟수가 늘어 기체의 압력이 커지고, 기체의 부피는 줄어들어요.',
+});
 SS.init({
   id: 'boyle-lab', title: '보일 법칙 — 기체의 압력과 부피', file: '보일법칙_압력과부피', version: APP_VERSION, date: APP_DATE,
   help: HELP, theory, capture, onResize: sizeText,
-  onWipe: () => { S = { V: V0, pred: null, predShown: false, predDone: false }; recs = []; anim = null; Gas.setL(gas, V0 * MM_PER_ML * ZOOM); render(); renderPred(); renderTable(); renderGraph(); },
+  onWipe: () => { mc.wipe(); setDTab('g'); S = { V: V0, pred: null, predShown: false, predDone: false }; recs = []; anim = null; Gas.setL(gas, V0 * MM_PER_ML * ZOOM); render(); renderPred(); renderTable(); renderGraph(); },
 });
 renderPred(); renderTable(); sizeText(); renderGraph();
-SS.loop(step);
-window.BoyleLab = { setV, animateTo, record, step, gas, state: () => ({ S, recs, P: pres(S.V), rate: Gas.rate(gas) }) };
+SS.loop(dt => { step(dt); mc.sync(); });
+setDTab(dTab);
+window.BoyleLab = { mc, setDTab, setV, animateTo, record, step, gas, state: () => ({ S, recs, P: pres(S.V), rate: Gas.rate(gas) }) };
 
 </script>
 </body>
